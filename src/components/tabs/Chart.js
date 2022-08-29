@@ -1,14 +1,79 @@
 import React, { useState, useEffect } from "react";
-import { Col, Row, Card } from "antd";
-import { Line ,Column} from "@ant-design/plots";
+import { Col, Row, Card,Progress } from "antd";
+import { Line, Column } from "@ant-design/plots";
 import {
   FacebookOutlined,
   InstagramOutlined,
   TwitterOutlined,
 } from "@ant-design/icons";
 
-
 const Chart = () => {
+  const items = [
+    {
+      type: "1-3秒",
+      value: 0.16,
+    },
+    {
+      type: "4-10秒",
+      value: 0.125,
+    },
+    {
+      type: "11-30秒",
+      value: 0.24,
+    },
+    {
+      type: "31-60秒",
+      value: 0.19,
+    },
+    {
+      type: "1-3分",
+      value: 0.22,
+    },
+    {
+      type: "3-10分",
+      value: 0.05,
+    },
+    {
+      type: "10-30分",
+      value: 0.01,
+    },
+    {
+      type: "30+分",
+      value: 0.015,
+    },
+  ];
+  const paletteSemanticRed = "#F4664A";
+  const brandColor = "#5B8FF9";
+  const config2 = {
+    items,
+    xField: "type",
+    yField: "value",
+    seriesField: "",
+    color: ({ type }) => {
+      if (type === "10-30分" || type === "30+分") {
+        return paletteSemanticRed;
+      }
+
+      return brandColor;
+    },
+    label: {
+      content: (originData) => {
+        const val = parseFloat(originData.value);
+
+        if (val < 0.05) {
+          return (val * 100).toFixed(1) + "%";
+        }
+      },
+      offset: 10,
+    },
+    legend: false,
+    xAxis: {
+      label: {
+        autoHide: true,
+        autoRotate: false,
+      },
+    },
+  };
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -60,7 +125,7 @@ const Chart = () => {
     },
   };
 
- 
+
   return (
     <div style={{ margin: "5%" }}>
       <div style={{ marginBottom: "5%" }}>
@@ -70,13 +135,16 @@ const Chart = () => {
             span={6}
             style={{ background: "#048B9A", padding: "2%" }}
           >
+            <Progress percent={30} status="active" />
             Users
           </Col>
           <Col
             className="gutter-row"
             span={6}
             style={{ background: "#F9A521", padding: "2%" }}
-          >Pages views</Col>
+          >
+            Pages views
+          </Col>
           <Col
             className="gutter-row"
             span={6}
@@ -89,26 +157,23 @@ const Chart = () => {
           ></Col>
         </Row>
       </div>
+      <div style={{display:"flex", flexDirection:'row',justifyContent:'space-between'}} >
+        <Line {...config} style={{ width: "48%" }} />
+        <Column {...config} style={{ width: "48%" }} />
+      </div>
 
-      <Line {...config} style={{width:'50%'}}/>
-
-      <div className="site-card-wrapper" style={{ marginTop: "5%" ,}}>
+      <div className="site-card-wrapper" style={{ marginTop: "5%" }}>
         <Row gutter={16}>
           <Col span={8}>
             <Card
               title={
                 <FacebookOutlined
-                  style={{
-                    color: "white",
-                    fontSize: "40px",
-                    marginLeft: "40%",
-                    padding: "5%",
-                  }}
+                  style={{ color: "white", fontSize: "40px", marginLeft: "40%",  padding: "5%", }}
                 />
               }
               bordered={false}
               hoverable
-              style={{ background: "#3B5998" ,}}
+              style={{ background: "#3B5998" }}
             ></Card>
           </Col>
           <Col span={8}>
@@ -147,6 +212,7 @@ const Chart = () => {
           </Col>
         </Row>
       </div>
+      
     </div>
   );
 };

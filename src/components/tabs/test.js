@@ -1,55 +1,73 @@
-import React, { Component } from "react";
-import { Col, Row, } from "antd";
-import {
-  FacebookOutlined,
-  InstagramOutlined,
-  TwitterOutlined,
-  LinkedinOutlined,
-} from "@ant-design/icons";
+import React, { useState, useEffect } from 'react';
+import { Column } from '@ant-design/plots';
 
+const Test = () => {
+  const data = [
+    {
+      type: '1-3秒',
+      value: 0.16,
+    },
+    {
+      type: '4-10秒',
+      value: 0.125,
+    },
+    {
+      type: '11-30秒',
+      value: 0.24,
+    },
+    {
+      type: '31-60秒',
+      value: 0.19,
+    },
+    {
+      type: '1-3分',
+      value: 0.22,
+    },
+    {
+      type: '3-10分',
+      value: 0.05,
+    },
+    {
+      type: '10-30分',
+      value: 0.01,
+    },
+    {
+      type: '30+分',
+      value: 0.015,
+    },
+  ];
+  const paletteSemanticRed = '#F4664A';
+  const brandColor = '#5B8FF9';
+  const config = {
+    data,
+    xField: 'type',
+    yField: 'value',
+    seriesField: '',
+    color: ({ type }) => {
+      if (type === '10-30分' || type === '30+分') {
+        return paletteSemanticRed;
+      }
 
-export class Test extends Component {
-  render() {
-    return (
-      <div style={{ margin: "5%" }}>
-      
-        <div style={{marginBottom:'5%'}}>
-          <Row gutter={16}>
-            <Col className="gutter-row" span={6} style={{ background: "#048B9A", padding: "2%" }}>
-                            
-         
-            </Col>
-            <Col className="gutter-row" span={6} style={{ background: "#F9A521", padding: "2%" }}>
+      return brandColor;
+    },
+    label: {
+      content: (originData) => {
+        const val = parseFloat(originData.value);
 
-            </Col>
-            <Col className="gutter-row" span={6} style={{ background: "#70726E", padding: "2%" }}>
-
-            </Col>
-            <Col className="gutter-row" span={6} style={{ background: "#FF6F7D", padding: "2%" }}>
-
-            </Col>
-          </Row>
-        </div>
-
-        <div>
-          <Row justify="space-evenly" gutter={16}>
-            <Col span={6} style={{ background: "#3B5998", padding: "2%" }}>
-              <FacebookOutlined style={{ color: "white", fontSize: "40px" , marginLeft:'40%'}} />
-            </Col>
-            <Col span={6} style={{ background: "#C0428A", padding: "2%" }}>
-              <InstagramOutlined style={{ color: "white", fontSize: "40px", marginLeft:'40%'}} />
-            </Col>
-            <Col span={6} style={{ background: "#00ACEE", padding: "2%" }}>
-              <TwitterOutlined style={{ color: "white", fontSize: "40px", marginLeft:'40%' }} />
-            </Col>
-            <Col span={6} style={{ background: "#0E76A8", padding: "2%" }}>
-              <LinkedinOutlined style={{ color: "white", fontSize: "40px", marginLeft:'40%' }} />
-            </Col>
-          </Row>
-        </div>
-      </div>
-    );
-  }
-}
-
+        if (val < 0.05) {
+          return (val * 100).toFixed(1) + '%';
+        }
+      },
+      offset: 10,
+    },
+    legend: false,
+    xAxis: {
+      label: {
+        autoHide: true,
+        autoRotate: false,
+      },
+    },
+  };
+  return <Column {...config} />;
+};
 export default Test;

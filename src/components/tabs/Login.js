@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { Card, Input, Avatar, Space, Drawer, Alert } from "antd";
+import { Card, Input, Avatar, Space } from "antd";
 import { DisplayButton } from "../librairy/Button";
 import { validatorConnect } from "../functions/validator-connect";
+import { openNotification }from "../functions/notification";
 import { sessionHandler } from "../functions/sessionStore";
 import { keyCredential } from "../constants/credential";
 import { addUserData } from "../../store/actions";
-import { Navigate } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 import {
@@ -21,8 +22,9 @@ class Login extends Component {
     alert: false,
     alertText: "Renseignez les champs svp!",
     alertType: "warning",
+    
   };
-
+  
 
   // functions
   closeAlert = () => {
@@ -35,11 +37,8 @@ class Login extends Component {
     const { email, password } = this.state;
 
     if (!validatorConnect(email, password)) {
-      return this.setState({
-        alert: true,
-        alertType: "error",
-        alertText: "Email ou Mot de passe incorrect",
-      });
+      return openNotification ("warning", "email ou mot de passe incorrect")    
+    
     }
     await this.props.saveData({
       email: email,
@@ -53,26 +52,17 @@ class Login extends Component {
     });
   };
   render() {
-    const { alert, alertText, alertType } = this.state;
+    // const { alert, alertText, alertType } = this.state;
 
     if (
       sessionHandler("auth_token", null, "get") &&
       sessionHandler("auth_token", null, "get").length !== 0
     ) {
-      return <Navigate to="/home" />;
+      return <Redirect to="/main" />;
     }
     return (
       <div className="site-card-border-less-wrapper">
 
-          <Alert
-            message="Attention!"
-            description={alertText}
-            type={alertType}
-            showIcon
-            closable
-            onClose={() => this.closeAlert()}
-
-          />
         <Card
           bordered={true}
           style={{

@@ -1,7 +1,6 @@
-import { LOGIN_USER,LOGOUT_USER } from "./action-type"
+import { LOGIN_USER, LOGOUT_USER } from "./action-type"
 
 const initialState={
-    todo:[],
     user: {}
 };
 

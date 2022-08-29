@@ -1,22 +1,21 @@
-import './App.css';
-import Home from './components/tabs/Home';
-import Login from './components/tabs/Login';
-import Error from './components/tabs/Error';
-import User from './components/tabs/User';
-import Chart from './components/tabs/Chart';
-import { Routes, Route } from "react-router-dom";
-
+import "./App.css";
+import Home from "./components/tabs/Layout";
+import Login from "./components/tabs/Login";
+import Error from "./components/tabs/Error";
+// import User from './components/tabs/User';
+// import Chart from './components/tabs/Chart';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 function App() {
   return (
     <div>
-        <Routes>
-          <Route path="/" element={<Login/>} />
-          <Route path="home" element={<Home />} />
-          <Route path="user" element={<User />} />
-          <Route path="chart" element={<Chart />} />
-          <Route  path="*" element={<Error />} />
-        </Routes>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/"> <Login /> </Route>
+          <Route path="/main"> <Home /> </Route>
+          <Route exact path="*"> <Error /> </Route>
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }
