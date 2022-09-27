@@ -27,9 +27,8 @@ function Home() {
           </Header>
 
           <Content className="site-layout-background">
-
               {listMenu.map((item, index) => (
-                <Route exact path={item.path} component={item.component} />
+                <Route exact key={index} path={item.path} component={item.component} />
               ))}
           </Content>
           <Footer style={{ textAlign: "center" }}>Powered by Xearth </Footer>
