@@ -21,8 +21,7 @@ class Login extends Component {
     password: "password",
     alert: false,
     alertText: "Renseignez les champs svp!",
-    alertType: "warning",
-    
+    alertType: "warning",   
   };
   
 
@@ -52,7 +51,6 @@ class Login extends Component {
     });
   };
   render() {
-    // const { alert, alertText, alertType } = this.state;
 
     if (
       sessionHandler("auth_token", null, "get") &&
