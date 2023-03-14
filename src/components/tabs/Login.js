@@ -58,7 +58,7 @@ class Login extends Component {
       sessionHandler("auth_token", null, "get") &&
       sessionHandler("auth_token", null, "get").length !== 0
     ) {
-      return <Redirect to="/main" />;
+      return <Redirect to="/main"/>;
     }
     return (
       <div className="site-card-border-less-wrapper">
@@ -72,7 +72,7 @@ class Login extends Component {
             marginTop: "10%",
           }}
         >
-          <Space direction="vertical" style={{}}>
+          <Space direction="vertical">
             <Avatar
               size={80}
               icon={<UserOutlined />}

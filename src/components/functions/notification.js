@@ -9,3 +9,4 @@ const openNotification = (type, text) => {
   });
 };
 export { openNotification };
+

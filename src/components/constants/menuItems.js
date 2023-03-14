@@ -13,7 +13,7 @@ import Chart from "../tabs/Chart"
     },
     {
         icon: <BarChartOutlined />,
-        label:"charts",
+        label:"Charts",
         path:"/main/chart",
         component: Chart
     },
